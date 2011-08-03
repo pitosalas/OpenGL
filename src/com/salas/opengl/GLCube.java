@@ -10,8 +10,8 @@ public class GLCube {
 	private final IntBuffer mVertexBuffer;
 	public GLCube() {
 		int one = 65536;
-		int m = one / 2;
-		int p = -m;
+		int p = one / 2;
+		int m = -p;
 		int vertices[] = {
 				//Front
 				m, m, p, p, m, p,
@@ -44,19 +44,22 @@ public class GLCube {
 	}
 	
 	public void draw(GL10 gl) {
-		gl.glColor4f(1, 1, 1, 1);
+		gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);
+
+		
+		gl.glColor4f(0, 0, 1, 0.1f);
 		gl.glNormal3f(0, 0, 1);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
 		gl.glNormal3f(0, 0, -1);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
 		
-		gl.glColor4f(1, 1, 1, 1);
+		gl.glColor4f(1, 0, 0, 0.1f);
 		gl.glNormal3f(-1, 0, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
 		gl.glNormal3f(1, 0, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
 
-		gl.glColor4f(1, 1, 1, 1);
+		gl.glColor4f(0, 1, 0, 0.1f);
 		gl.glNormal3f(0, 1, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
 		gl.glNormal3f(0, -1, 0);

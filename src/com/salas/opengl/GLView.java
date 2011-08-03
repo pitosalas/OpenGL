@@ -9,7 +9,7 @@ public class GLView extends GLSurfaceView {
 	GLView(Context context) {
 		super(context);
 		
-		//setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
+		// setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
 		renderer = new GLRenderer(context);
 		setRenderer(renderer);
 	}
