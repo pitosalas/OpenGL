@@ -23,12 +23,15 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 	}
 	
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+		Log.d(tag, "onSurfaceCreated");
+
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL10.GL_LEQUAL);
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+
 		
 		// Optional: disable dither to boost performance
-		//gl.glDisable(GL10.GL_DITHER);
+		gl.glDisable(GL10.GL_DITHER);
 		
 		
 		// Lighting
@@ -52,7 +55,10 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		startTime = System.currentTimeMillis();
 		fpsStartTime = startTime;
 		numframes = 0;
-		Log.d(tag, "onSurfaceCreated");
+		
+		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		gl.glEnable(GL10.GL_TEXTURE_2D);
+		GLCube.loadTextture(gl, context, R.drawable.brandeis);
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -66,7 +72,6 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 	}
 	
 	public void onDrawFrame(GL10 gl) {
-		Log.d(tag, "onDrawFrame");
 		// Clear the screen to black
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		
@@ -83,6 +88,13 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		// Draw the model
 		cube.draw(gl);
 		
-		
+		numframes++;
+		long fpsElaped = System.currentTimeMillis() - fpsStartTime;
+		if (fpsElaped > 5 * 1000) { // Every 5 seconds
+			float fps = (numframes * 1000.0f) / fpsElaped;
+			Log.d("GL", "Frames per second: " + fps + "(" + numframes + " frames in " + fpsElaped + " ms)");
+			fpsStartTime = System.currentTimeMillis();
+			numframes = 0;	
+		}
 	}
 }
