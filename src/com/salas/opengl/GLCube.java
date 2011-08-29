@@ -77,29 +77,48 @@ public class GLCube {
 		bmp.recycle();
 	}
 
-	public void draw(GL10 gl) {
-		gl.glEnable(GL10.GL_TEXTURE_2D);
-		gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
+	public void draw(GL10 gl, int trans, float[] mat) {
+		gl.glPushMatrix();
+		gl.glTranslatef(trans,  0, 0);
+//		gl.glEnable(GL10.GL_TEXTURE_2D);
+//		gl.glTexCoordPointer(2, GL10.GL_FIXED, 0, mTextureBuffer);
+				
+		// Materials
+
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat, 0);
+//		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, matDiffuse, 0);
 		
+
 		
+		// front
 		gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);		
 		gl.glColor4f(0, 0, 1, 0.1f);
 		gl.glNormal3f(0, 0, 1);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
+		
+		// Back
 		gl.glNormal3f(0, 0, -1);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
 		
+		// Left
 		gl.glColor4f(1, 0, 0, 0.1f);
 		gl.glNormal3f(-1, 0, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
+		
+		// Right
 		gl.glNormal3f(1, 0, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
 
+		// Top
 		gl.glColor4f(0, 1, 0, 0.1f);
 		gl.glNormal3f(0, 1, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
+		
+		// Bottom
 		gl.glNormal3f(0, -1, 0);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
+		
+		gl.glPopMatrix();
 
 	}
 

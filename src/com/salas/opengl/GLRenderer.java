@@ -10,7 +10,7 @@ import android.content.Context;
 
 public class GLRenderer implements GLSurfaceView.Renderer {
 	private static final String tag = "GLRenderer";
-	private final Context context;
+	private Context context;
 	
 	private long startTime;
 	private long fpsStartTime;
@@ -35,30 +35,25 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		
 		
 		// Lighting
-		float lightAmbient[] = new float[] { 0.2f, 0.2f, 0.2f, 1};
-		float lightDiffuse[] = new float[] { 1, 1, 1, 1, 1};
-		float lightPos[] = new float[] { 1, 1, 1, 1};
+//		float lightAmbient[] = new float[] { 2.1f, 0.0f, 0.0f, 1};
+		float lightDiffuse[] = new float[] { 1, 1, 1, 1 };
+		float lightPos[] = new float[] { 10, 10, 10, 0.0f};
 		
 		gl.glEnable(GL10.GL_LIGHTING);
 		gl.glEnable(GL10.GL_LIGHT0);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbient, 0);
+//		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbient, 0);
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, lightDiffuse, 0);
+//		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, lightDiffuse, 0);
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPos, 0);
-		
-		// Materials
-		float matAmbient[] = new float [] {1, 1, 1, 1};
-		float matDiffuse[] = new float[] {1, 1, 1, 1};
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, matAmbient, 0);
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, matDiffuse, 0);
 		
 		// Motion
 		startTime = System.currentTimeMillis();
 		fpsStartTime = startTime;
 		numframes = 0;
 		
-		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		gl.glEnable(GL10.GL_TEXTURE_2D);
-		GLCube.loadTextture(gl, context, R.drawable.brandeis);
+//		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+//		gl.glEnable(GL10.GL_TEXTURE_2D);
+//		GLCube.loadTextture(gl, context, R.drawable.brandeis);
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -78,7 +73,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		// Position model so I can see it:
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		gl.glTranslatef(0,  0, -3.0f);
+		gl.glTranslatef(0,  0, -20.0f);
 		
 		//... Set rotation angle based on the time
 		long elapsed = System.currentTimeMillis() - startTime;
@@ -86,7 +81,12 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 		gl.glRotatef(elapsed * (15f / 1000f), 1, 0, 0);
 		
 		// Draw the model
-		cube.draw(gl);
+		
+		float matOne[] = new float [] {0, 0, 1, 1};
+		float matTwo[] = new float [] {1, 0, 1, 1};
+		
+		cube.draw(gl, -3, matOne);
+		cube.draw(gl, 0, matTwo);
 		
 		numframes++;
 		long fpsElaped = System.currentTimeMillis() - fpsStartTime;
