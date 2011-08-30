@@ -6,19 +6,33 @@ import android.util.AttributeSet;
 
 public class GEView extends GLSurfaceView {
 	private GERenderer renderer;
+	private GEModel model;
 	
-	GEView(Context context) {
+	protected GEView(Context context) {
 		super(context);
-		initGLView(context);
 	}
 	
 	public GEView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		initGLView(context);
 	}
 	
-	void initGLView(Context context) {
+	public void setup(GEModel model, Context context) {
+		this.model = model;
+		renderer = new GERenderer(model, context);
+		setRenderer(renderer);
 //		setDebugFlags(DEBUG_CHECK_GL_ERROR | DEBUG_LOG_GL_CALLS);
+	}
+	
+	protected void setPulseIntervalMS(int i) {
+		renderer.setPulseIntervalMS(i);		
+	}
+
+	protected void setLookAt(int i, int j, int k) {
+		renderer.setLookAt(i, j, k);
+	}
+
+	protected void setLookFrom(int i, int j, int k) {
+		renderer.setLookFrom(i, j, k);
 	}
 
 }

@@ -4,12 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-	<TextView  
-	    android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    android:text="@string/hello"
-	    />
-	<com.salas.miniengine.GEView 
+    <TextView android:id="@+id/textView1" android:text="Welcome to MyGame" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	<com.salas.mygame.MyGameView 
 		android:layout_width="match_parent" 
 		android:layout_height="match_parent"
 		android:id="@+id/game_view"

@@ -15,8 +15,8 @@ public class MyGameActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-	    GEView view = (GEView) findViewById(R.id.game_view);
-		view.setRenderer(new MyGameRenderer(new MyGameModel(), this));
+	    MyGameView view = (MyGameView) findViewById(R.id.game_view);
+		view.setup(new MyGameModel(), this);
     }
     
     @Override
