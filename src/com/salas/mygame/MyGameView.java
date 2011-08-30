@@ -22,4 +22,13 @@ public class MyGameView extends GEView {
 		setLookAt(10, 0, 0);
 		setPulseIntervalMS(1000);
 	}
+
+	public void resumePulse() {
+		super.resumePulse();
+	}
+
+	public void pausePulse() {
+		super.pausePulse();
+		
+	}
 }

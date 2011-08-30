@@ -24,7 +24,7 @@ public class GEView extends GLSurfaceView {
 	}
 	
 	protected void setPulseIntervalMS(int i) {
-		renderer.setPulseIntervalMS(i);		
+		renderer.setPulseIntervalMS(i);
 	}
 
 	protected void setLookAt(int i, int j, int k) {
@@ -33,6 +33,15 @@ public class GEView extends GLSurfaceView {
 
 	protected void setLookFrom(int i, int j, int k) {
 		renderer.setLookFrom(i, j, k);
+	}
+
+	public void pausePulse() {
+		renderer.pausePulse();
+		
+	}
+
+	public void resumePulse() {
+		renderer.resumePulse();
 	}
 
 }

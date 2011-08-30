@@ -21,6 +21,8 @@ public class GERenderer implements GLSurfaceView.Renderer {
 	private boolean autoPan = false;
 	private float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
 	private int pulseInterval;
+	private boolean pulseActive;
+
 
 		
 	public GERenderer(GEModel model, Context context) {
@@ -132,7 +134,7 @@ public class GERenderer implements GLSurfaceView.Renderer {
 	}
 	
 	private void handlePulse() {
-		if (pulseInterval != 0) {
+		if (pulseInterval != 0 && pulseActive) {
 			long pulseElapsed = System.currentTimeMillis() - pulseStartTime;
 			if (pulseElapsed > pulseInterval) {
 				model.pulse();
@@ -159,5 +161,13 @@ public class GERenderer implements GLSurfaceView.Renderer {
 
 	public void setAutoPan(boolean setting) {
 		autoPan = setting;
+	}
+
+	public void pausePulse() {
+		pulseActive = false;
+	}
+	
+	public void resumePulse() {
+		pulseActive = true;
 	}
 }
