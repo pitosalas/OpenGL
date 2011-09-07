@@ -22,6 +22,9 @@ public class GERenderer implements GLSurfaceView.Renderer {
 	private float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
 	private int pulseInterval;
 	private boolean pulseActive;
+	private float modelTime;
+	private float lastModelTime;
+	private float frameElapsedTime;
 
 
 		
@@ -56,6 +59,7 @@ public class GERenderer implements GLSurfaceView.Renderer {
 		fpsStartTime = startTime;
 		numframes = 0;
 		pulseStartTime = startTime;
+		modelTime = 0;
 	}
 	
 	private void defaultLighting(GL10 gl) {
@@ -91,9 +95,18 @@ public class GERenderer implements GLSurfaceView.Renderer {
 		
 		handlePulse();
 		
+		updateModelTime();
+		
 		renderModel(gl);
 		
-		logFPS();
+		logInfo();
+	}
+
+	private void updateModelTime() {
+		modelTime = (System.currentTimeMillis() - startTime)/1000.0f;
+		frameElapsedTime = modelTime - lastModelTime;
+		lastModelTime = modelTime;
+		model.updateTime(modelTime, frameElapsedTime);
 	}
 
 	private void clearView(GL10 gl) {
@@ -102,9 +115,10 @@ public class GERenderer implements GLSurfaceView.Renderer {
 	}
 
 	private void renderModel(GL10 gl) {
-		// Draw the model
-		model.render(gl);
-	}
+		for (GEModelSprite asprite : model.sprites) {
+		    	asprite.render(gl);
+		    }
+		}
 
 	private void automaticPan(GL10 gl) {
 		if (autoPan) {
@@ -122,14 +136,15 @@ public class GERenderer implements GLSurfaceView.Renderer {
 		GLU.gluLookAt(gl, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0);
 	}
 
-	private void logFPS() {
+	private void logInfo() {
 		numframes++;
 		long fpsElaped = System.currentTimeMillis() - fpsStartTime;
 		if (fpsElaped > 5 * 1000) { // Every 5 seconds
 			float fps = (numframes * 1000.0f) / fpsElaped;
-			Log.d("GL", "Frames per second: " + fps + "(" + numframes + " frames in " + fpsElaped + " ms)");
+			Log.d("GE", "Frames per second: " + fps + "(" + numframes + " frames in " + fpsElaped + " ms)");
+			Log.d("GE", "Time Curr: " + modelTime + ", Elapsed: " + frameElapsedTime);
 			fpsStartTime = System.currentTimeMillis();
-			numframes = 0;	
+			numframes = 0;
 		}
 	}
 	

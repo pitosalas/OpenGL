@@ -25,8 +25,9 @@ public class MyGameModel extends GEModel {
 			}
 		}
 		GEModelSprite extra = new GEModelSprite(0.0f, 10.0f, 0, matWhite);
-		extra.animateRotate(true);
+		extra.setRotate(true);
 		sprites.add(extra);
+		
 	}
 
 	public void render(GL10 gl) {

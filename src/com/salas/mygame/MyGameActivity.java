@@ -1,7 +1,5 @@
 package com.salas.mygame;
 
-import com.salas.miniengine.GEView;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;

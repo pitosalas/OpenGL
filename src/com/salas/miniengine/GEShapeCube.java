@@ -11,7 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
-public class GEShapeCube extends GEShapeRenderer {
+public class GEShapeCube extends GEShape {
 	private final IntBuffer mVertexBuffer;
 	private final IntBuffer mTextureBuffer;
 	public GEShapeCube() {
@@ -77,14 +77,6 @@ public class GEShapeCube extends GEShapeRenderer {
 		bmp.recycle();
 	}
 
-	public void draw(GL10 gl, float transX, float transY, float transZ, float[] material) {
-		gl.glPushMatrix();
-		draw_translation(gl, transX, transY, transZ);
-		draw_material(gl, material);		
-		draw_verteces(gl);
-		gl.glPopMatrix();
-	}
-
 	protected void draw_verteces(GL10 gl) {
 		// front
 		gl.glVertexPointer(3, GL10.GL_FIXED, 0, mVertexBuffer);		
@@ -115,13 +107,5 @@ public class GEShapeCube extends GEShapeRenderer {
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
 	}
 
-	protected void draw_material(GL10 gl, float[] material) {
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, material, 0);
-	}
-
-	protected void draw_translation(GL10 gl, float transX, float transY,
-			float transZ) {
-		gl.glTranslatef(transX, transY, transZ);
-	}
 
 }
