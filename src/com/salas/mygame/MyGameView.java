@@ -20,6 +20,7 @@ public class MyGameView extends GEView {
 		super.setup(model, context);
 		setLookFrom(10, 10, 40);
 		setLookAt(10, 0, 0);
+		setLens();
 		setPulseIntervalMS(1000);
 	}
 

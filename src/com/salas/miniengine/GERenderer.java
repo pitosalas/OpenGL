@@ -39,10 +39,6 @@ public class GERenderer implements GLSurfaceView.Renderer {
 		defaultProperties(gl);		
 		defaultLighting(gl);
 		startMotion();
-		
-//		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-//		gl.glEnable(GL10.GL_TEXTURE_2D);
-//		GLCube.loadTextture(gl, context, R.drawable.brandeis);
 	}
 
 	private void defaultProperties(GL10 gl) {
@@ -77,13 +73,19 @@ public class GERenderer implements GLSurfaceView.Renderer {
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		Log.v("GE", "On SurfaceChanged called");
 		// Define the view frustrum
 		gl.glViewport(0, 0,	width, height);
+
+		// Change the projection matrix. Use perspective.
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		
 		float ratio = (float) width / height;
-		GLU.gluPerspective(gl, 45.0f, ratio, 1, 100f);
+		GLU.gluPerspective(gl, 45.0f, ratio, 0.1f, 100.0f);
+
+		// Go back to the Modelview matrix
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		gl.glLoadIdentity();
 	}
 		
 	public void onDrawFrame(GL10 gl) {

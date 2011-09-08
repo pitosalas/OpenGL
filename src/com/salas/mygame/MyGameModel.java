@@ -21,11 +21,14 @@ public class MyGameModel extends GEModel {
 				} else {
 					mat = new float[] {0, 0, x/3.0f, 1};					
 				}
-				sprites.add(new GEModelSprite(x*2.0f, 0, z*2, mat));
+				GEModelSprite spr = new GEModelSprite(x*5.0f, 0, z*-10, mat);
+				spr.setScale(2, 5, 1);
+				sprites.add(spr);
 			}
 		}
-		GEModelSprite extra = new GEModelSprite(0.0f, 10.0f, 0, matWhite);
+		GEModelSprite extra = new GEModelSprite(2.0f, 10.0f, 0, matWhite);
 		extra.setRotate(true);
+		extra.setScale(5.0f, 5.0f, 5.0f);
 		sprites.add(extra);
 		
 	}
@@ -34,11 +37,11 @@ public class MyGameModel extends GEModel {
 		int counter = 0;
 	    for (GEModelSprite asprite : sprites) {
 	    	if (counter == pulseCounter) {
-	    		asprite.move(0, 3, 0);
+	    		asprite.setPosition(0, 3, 0);
 	    	}
 	    	asprite.render(gl);
 	    	if (counter == pulseCounter) {
-	    		asprite.move(0, -3, 0);
+	    		asprite.setPosition(0, -3, 0);
 	    	}
 	    	counter++;
 	    }

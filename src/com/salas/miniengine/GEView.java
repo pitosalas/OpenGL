@@ -34,6 +34,10 @@ public class GEView extends GLSurfaceView {
 	protected void setLookFrom(int i, int j, int k) {
 		renderer.setLookFrom(i, j, k);
 	}
+	
+	protected void setLens() {
+		
+	}
 
 	public void pausePulse() {
 		renderer.pausePulse();
